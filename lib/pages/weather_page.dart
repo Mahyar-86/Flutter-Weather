@@ -30,10 +30,10 @@ class _WeatherPageState extends State<WeatherPage> {
     }
   }
 
-  String getWeatherAnimation(String? mainCondition){
-    if(mainCondition == null) return "assets/Sunny.json";
+  String getWeatherAnimation(String? mainCondition) {
+    if (mainCondition == null) return "assets/Sunny.json";
 
-    switch (mainCondition.toLowerCase()){
+    switch (mainCondition.toLowerCase()) {
       case "clouds":
       case "mist":
       case "smoke":
@@ -65,21 +65,43 @@ class _WeatherPageState extends State<WeatherPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[900],
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             //show city name
-            Text(_weather?.cityName ?? "Loading..."),
+            Column(
+              children: [
+                const Icon(
+                  Icons.location_on,
+                  color: Colors.white,
+                  size: 30.0,
+                ),
+                Text(
+                  _weather?.cityName.toUpperCase() ??
+                      "Loading...".toUpperCase(),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 40.0,
+                  ),
+                ),
+              ],
+            ),
 
             //Show Weather Animation
             Lottie.asset(getWeatherAnimation(_weather?.mainCondition)),
 
             //show temperature
-            Text("${_weather?.temperature.round() ?? "~"}°C"),
-
-            //show condition
-            Text(_weather?.mainCondition ?? "~"),
+            Text(
+              "${_weather?.temperature.round() ?? "~"}°C",
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 40.0,
+              ),
+            ),
           ],
         ),
       ),
