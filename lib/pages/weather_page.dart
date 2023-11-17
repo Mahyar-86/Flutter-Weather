@@ -13,13 +13,15 @@ class WeatherPage extends StatefulWidget {
 class _WeatherPageState extends State<WeatherPage> {
   //Set API Key
   final _weatherService = WeatherService("37649a631ba24307b0ee0ad2ee84e812");
+
   Weather? _weather;
 
+  //get weather of the city
   _fetchWeather() async {
     //get the current city name
     String cityName = await _weatherService.getCurrentCity();
 
-    //get weather of the city
+    //try to get it, if cannot, return error
     try {
       final weather = await _weatherService.getWeather(cityName);
       setState(() {
@@ -30,6 +32,7 @@ class _WeatherPageState extends State<WeatherPage> {
     }
   }
 
+  //choose weather animation
   String getWeatherAnimation(String? mainCondition) {
     if (mainCondition == null) return "assets/Sunny.json";
 
